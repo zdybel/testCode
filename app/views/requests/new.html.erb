@@ -1,0 +1,37 @@
+<h1>Requests#new</h1>
+<p>Find me in app/views/requests/new.html.erb</p>
+
+<!--  <h3>Event at <%= @location_name %></br> </h3></br>
+ 		Address:<%= @location_street_address %>, <%= @location_city %></br> -->
+
+
+ 	<%= form_for @request do |f| %>
+
+ 		<%= f.hidden_field :user_id, value: "#@user_id" %>
+ 		<%= f.hidden_field :confirmed, value: "#{false}" %>
+ 		<%= f.hidden_field :matched, value: "#{false}" %>
+ 		<%= f.hidden_field :insurance, value: "@user_insurance"%>
+
+ 		 <div class="field">
+    		<%= f.label :dayofweek %><br />
+    		<%= f.select :dayofweek, options_for_select(dayofweek) %>
+  		</div> 
+
+  		<div class="field">
+  		   	<%= f.label :timeofday %><br />
+  		   	<%= f.select :timeofday, options_for_select(timeofday) %>
+  		</div> 
+ 
+  		<div class="field">
+  		   	<%= f.label :specialty %><br />
+  		   	<%= f.select :specialty, options_for_select(specialty) %>
+  		</div> 
+
+ 		<%= f.label :notes, value: "Notes: " %>
+ 		<%= f.text_field :notes, :class => 'form-control' %><br>
+
+ 		<%= f.submit "Create Request" ,:class => 'btn btn-danger' %>
+
+ 	<% end %>
+
+

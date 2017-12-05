@@ -1,0 +1,7 @@
+hi   
+<%= @user_identity %>
+<% if @user_identity == 'Patient'%>
+	yo you are a patient  <%= @user_identity %>
+	<% else %>
+	yo you are a doctor <%= @user_identity %>
+<% end %>
