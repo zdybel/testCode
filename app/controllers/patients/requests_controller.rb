@@ -1,6 +1,5 @@
 class Patients::RequestsController < ApplicationController
       before_action :authenticate_patient!, only: [:new, :create, :show]
-      #attr_accessor :request
 
     def new
         @request = Request.new
@@ -22,7 +21,7 @@ class Patients::RequestsController < ApplicationController
   def update
     @request = Request.find(params[:id])
     @request.update_attributes(request_params)
-    redirect_to patients_request_path(request)
+    redirect_to patients_request_path(@request)
   end
   
   def destroy
