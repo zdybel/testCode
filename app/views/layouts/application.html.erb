@@ -9,9 +9,42 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <%= link_to "Salunaut", root_path, class: 'navbar-navbrand' %>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+          <br />
+          <% if patient_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Patient sign-out", destroy_patient_session_path, method: :delete,  class: 'nav-link' %>
+          </li>
+          <% elsif office_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Office sign-out", destroy_office_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "Patient sign-in", new_patient_session_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Office sign-in", new_office_session_path, class: 'nav-link' %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+    
+    <% if notice.present? %>
+      <p class="alert alert-info"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    
     <%= yield %>
-      <% if current_user %>
-          <p><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></p>
-      <%end%>
   </body>
 </html>

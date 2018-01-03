@@ -1,0 +1,30 @@
+<div class="form_box">
+    <h2>Your Opening for a <u><%= "#{@opening.specialty}" %></u> specialist</h2>
+    <p> Is for <u><%= "#{@opening.dayofweek} #{@opening.timeofday}" %></u>.</p>
+    <p> <u>Notes:</u> <%= "#{@opening.notes}" %> </p>
+    <%= link_to "Edit Opening", edit_offices_opening_path(@opening), class: 'btn btn-primary' %>
+    <%= link_to "Delete Opening", offices_opening_path(@opening), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-danger' %>
+    <%= link_to "Return to Profile", office_path(current_office), class: "btn btn-primary" %>
+</div>
+
+<div class='text-center'>
+    <h3>Patients Requests:</h3>
+    <% if @matched_patient_requests.present? %>
+        <% @matched_patient_requests.each do |request| %>
+            <h5><%= request.patient.first_name %> <%= request.patient.last_name %></h5>
+            <h5><%= request.dayofweek %> <%= request.timeofday %>, <%= request.specialty %></h5>
+            <h4><u>Notes:</u></h4>
+            <h5><%= request.notes %></h5>
+            <% if @opening[:confirmed == false] && request[:confirmed == false] %>
+                <%= render 'confirm', request: request %>
+            <% else %>
+                <div class="confirmed">
+                    <h3>Confirmed!</h3>
+                </div>
+            <% end %>
+            <hr />    
+        <% end %>
+    <% else %>
+        <h4>You currently have no requests</h4>
+    <% end %>
+</div>

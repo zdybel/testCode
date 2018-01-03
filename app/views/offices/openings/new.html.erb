@@ -1,0 +1,32 @@
+<div class="form_box col-8 offset-2">
+<h1>Create Opening</h1>
+
+ <%= form_for @opening, url: offices_openings_path do |f| %>
+ <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.hidden_field :office_id, value: "#@office_id" %>
+
+    <div class="field">
+    	<%= f.label :dayofweek %><br />
+    	<%= f.select :dayofweek, options_for_select(dayofweek), class: "form_control" %>
+  	</div> 
+
+  	<div class="field">
+         <%= f.label :timeofday %><br />
+  	     <%= f.select :timeofday, options_for_select(timeofday), class: "form_control" %>
+  	</div> 
+ 
+    <div class="field">
+        <%= f.label :specialty %><br />
+        <%= f.select :specialty, options_for_select(specialty), class: "form_control" %>
+    </div> 
+    
+    <div class="field">
+ 	    <%= f.label :notes, value: "Notes: " %>
+ 	    <%= f.text_field :notes, class: 'form-control' %><br>
+    </div>
+    
+ 	<%= f.submit "Create Opening", class: 'btn btn-primary' %>
+
+ <% end %>
+</div>

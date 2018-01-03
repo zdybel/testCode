@@ -1,4 +1,9 @@
 class Request < ApplicationRecord
-	belongs_to :user
-	has_and_belongs_to_many :openingss
+	validates :timeofday, presence: true
+	validates :dayofweek, presence: true 
+	validates :notes, presence: true
+	validates :specialty, presence: true
+	belongs_to :patient
+	default_scope -> {order(created_at: :desc)}
+
 end

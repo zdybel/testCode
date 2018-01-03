@@ -1,0 +1,2 @@
+module Offices::OpeningsHelper
+end
