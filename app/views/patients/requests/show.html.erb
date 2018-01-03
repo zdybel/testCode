@@ -9,7 +9,7 @@
 
 <div class='text-center'>
     <h3>Matching Openings:</h3>
-            <% if @request.matched.zero? && @same_openings.present?%>
+            <% if @request.matched.zero? && @same_openings.present? %>
                 <% @same_openings.each do |opening| %>
                   <h5><%= opening.office.office_name %></h5>
                   <h5><%= opening.dayofweek %> <%= opening.timeofday %>, <%= opening.specialty %></h5>
@@ -24,12 +24,12 @@
                 <h5><%= opening.dayofweek %> <%= opening.timeofday %>, <%= opening.specialty %></h5>
                 <h4><u>Notes:</u></h4>
                 <h5><%= opening.notes %></h5>
-                <% if @request[:confirmed] = true %>
+                <% if @request.confirmed == true %>
                   <div class="confirmed">
                     <h3>Confirmed!</h3>
                   </div>
                 <% else %>
-                  <%= render 'Unchoose', opening: opening %>
+                  <%= render 'unchoose', opening: opening %>
                 <% end %>
             <% else %>
               <h4>You currently have no matches</h4>

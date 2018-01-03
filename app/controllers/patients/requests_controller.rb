@@ -22,7 +22,7 @@ class Patients::RequestsController < ApplicationController
   def update
     @request = Request.find(params[:id])
     @request.update_attributes(request_params)
-    redirect_to patient_path(current_patient)
+    redirect_to patients_request_path(request)
   end
   
   def destroy
@@ -34,15 +34,13 @@ class Patients::RequestsController < ApplicationController
   def show
     @request = Request.find(params[:id])
     @same_openings = []
-    offices = Office.all
+    offices = Office.where("insurance = ?", @request.patient.insurance)
     offices.each do |office|
-      if office.insurance == @request.patient.insurance
         office.openings.each do |opening|
           if matching_attributes?(opening, @request)
             @same_openings << opening
           end
         end
-      end
     end
   end
   

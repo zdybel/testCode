@@ -15,7 +15,7 @@
             <h5><%= request.dayofweek %> <%= request.timeofday %>, <%= request.specialty %></h5>
             <h4><u>Notes:</u></h4>
             <h5><%= request.notes %></h5>
-            <% if @opening[:confirmed == false] && request[:confirmed == false] %>
+            <% if @opening.confirmed == false && request.confirmed == false %>
                 <%= render 'confirm', request: request %>
             <% else %>
                 <div class="confirmed">

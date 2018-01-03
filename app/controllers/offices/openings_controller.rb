@@ -21,7 +21,7 @@ class Offices::OpeningsController < ApplicationController
   def update
     @opening = Opening.find(params[:id])
     @opening.update_attributes(opening_params)
-    redirect_to office_path(current_office)
+    redirect_to offices_opening_path(@opening)
   end
 
   def destroy
