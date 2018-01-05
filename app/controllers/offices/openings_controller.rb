@@ -26,7 +26,14 @@ class Offices::OpeningsController < ApplicationController
 
   def destroy
     @opening = Opening.find(params[:id])
-    @opening.delete
+    if @opening.confirmed == true
+      request = Request.find_by(matched: @opening.id, confirmed: true)
+      request.update_attributes(confirmed: false)
+      request.update_attributes(matched: 0)
+      @opening.delete
+    else
+      @opening.delete
+    end
     redirect_to office_path(current_office)
   end
   

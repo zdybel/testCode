@@ -26,7 +26,13 @@ class Patients::RequestsController < ApplicationController
   
   def destroy
     request = Request.find(params[:id])
-    request.delete
+    if request.confirmed == true
+      opening = Opening.find(request.matched)
+      opening.update_attributes(confirmed: false)
+      request.delete
+    else
+      request.delete
+    end
     redirect_to patient_path(current_patient)
   end
   
