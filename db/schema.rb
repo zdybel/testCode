@@ -10,35 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112203502) do
+ActiveRecord::Schema.define(version: 20180102235916) do
 
-  create_table "openings", force: :cascade do |t|
-    t.string   "dayofweek"
-    t.string   "timeofday"
-    t.string   "specialty"
-    t.text     "notes"
-    t.boolean  "matched"
-    t.boolean  "confirmed"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "insurance"
-  end
-
-  create_table "requests", force: :cascade do |t|
-    t.string   "dayofweek"
-    t.string   "timeofday"
-    t.string   "specialty"
-    t.text     "notes"
-    t.boolean  "matched"
-    t.boolean  "confirmed"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "insurance"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "offices", force: :cascade do |t|
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -49,16 +25,62 @@ ActiveRecord::Schema.define(version: 20171112203502) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "office_name"
+    t.string   "insurance"
+    t.index ["email"], name: "index_offices_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_offices_on_reset_password_token", unique: true
+  end
+
+  create_table "openings", force: :cascade do |t|
+    t.string   "dayofweek"
+    t.string   "timeofday"
+    t.string   "specialty"
+    t.text     "notes"
+    t.boolean  "confirmed",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "office_id"
+    t.index ["office_id"], name: "index_openings_on_office_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "fname"
-    t.string   "lname"
-    t.boolean  "patient"
-    t.string   "username"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "insurance"
     t.string   "identity"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_patients_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_patients_on_reset_password_token", unique: true
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string   "dayofweek"
+    t.string   "timeofday"
+    t.string   "specialty"
+    t.text     "notes"
+    t.integer  "matched",    default: 0
+    t.boolean  "confirmed",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "insurance"
+    t.integer  "patient_id"
+    t.index ["patient_id"], name: "index_requests_on_patient_id"
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

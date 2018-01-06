@@ -1,0 +1,16 @@
+<div class="hero">
+    <br />
+    <div class="frosty col-10 offset-1 text-center">
+        <br />
+    <h1> Salunaut</h1>
+        <br />
+    <h2> Appointments made easy!</h2>
+        <br />
+        <% if current_office %>
+            <%= link_to 'View Your Profile', office_path(current_office), class: 'btn btn-success' %>
+        <% elsif current_patient %>
+            <%= link_to 'View Your Profile', patient_path(current_patient), class: 'btn btn-success' %>
+        <% end %>
+    </div>
+    
+</div>

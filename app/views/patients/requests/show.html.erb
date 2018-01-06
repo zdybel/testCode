@@ -1,0 +1,38 @@
+<div class="form_box">
+    <h2>Your Request for a <u><%= "#{@request.specialty}" %></u> specialist</h2>
+    <p> Is for <u><%= "#{@request.dayofweek} #{@request.timeofday}" %></u>.</p>
+    <p> <u>Notes:</u> <%= "#{@request.notes}" %> </p>
+    <%= link_to "Edit Request", edit_patients_request_path(@request), class: 'btn btn-primary' %>
+    <%= link_to "Delete request", patients_request_path(@request), method: :delete, data: {confirm: "Are you sure?"}, class: 'btn btn-danger' %>
+    <%= link_to "Return to Profile", patient_path(current_patient), class: "btn btn-primary" %>
+</div>
+
+<div class='text-center'>
+    <h3>Matching Openings:</h3>
+            <% if @request.matched.zero? && @same_openings.any? %>
+                <% @same_openings.each do |opening| %>
+                  <h5><%= opening.office.office_name %></h5>
+                  <h5><%= opening.dayofweek %> <%= opening.timeofday %>, <%= opening.specialty %></h5>
+                  <h4><u>Notes:</u></h4>
+                  <h5><%= opening.notes %></h5>
+                  <%= render "choose", opening: opening  %>
+                  <hr />
+                <% end %>
+            <% elsif !@request.matched.zero? %>
+              <% opening = Opening.find(@request.matched.to_s) %>
+                <h5><%= opening.office.office_name %></h5>
+                <h5><%= opening.dayofweek %> <%= opening.timeofday %>, <%= opening.specialty %></h5>
+                <h4><u>Notes:</u></h4>
+                <h5><%= opening.notes %></h5>
+                <% if @request.confirmed == true %>
+                  <div class="confirmed">
+                    <h3>Confirmed!</h3>
+                  </div>
+                <% else %>
+                  <%= render 'unchoose', opening: opening %>
+                <% end %>
+            <% else %>
+              <h4>You currently have no matches</h4>
+          <% end %>
+        
+</div>
